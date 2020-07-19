@@ -41,12 +41,14 @@ To be finished...
 
 |topic|num_papers|
 |:----|:----|
+|reinforcement learning|59|
 |graph|58|
 |GAN|17|
 |private|14|
 |unsupervised|11|
 |uncertainty|11|
 |multi-task|8|
+|generative adversarial|8|
 |GANs|7|
 |online learning|7|
 |semi-supervised|7|

@@ -35,7 +35,7 @@ for a in my_stoplist:
 # 定义topic短语词组
 topic_list = ['GNN', 'GCN', 'graph',
 'convolutional neural networks','CNN','convolutional neural networks',
-'GAN', 'GANs', "generative adversarial","generative adversarial"
+'GAN', 'GANs', "generative adversarial","generative adversarial",
 'reinforcement learning','Q-learning', 
 'online learning', "real time", "real-time",
 'Differential Privacy', "private",  
