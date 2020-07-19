@@ -23,5 +23,44 @@ Top 10 authors:
 
 ![avatar](/pic/author.png)
 ## 对关键词信息统计生成word_cloud
-
+problem: 
+- 很多专业名词(e.g., Adversarial Network, neural network)被分开成为两个词语
+，不符合实际情况；<br>
+- 大小写，单复数应该要不敏感;<br>
 ![avatar](/pic/keyword.png)
+
+## 对论文按照主题进行统计分类
+
+problem：
+- 自动找出一堆标题、摘要中出现次数很多的主题：主题发现；（手工定义容易遗漏，需要领域知识）
+- 自动将类似主题聚类合并；
+
+
+To be finished...
+
+
+|topic|num_papers|
+|:----|:----|
+|graph| |58|
+|GAN| 17|
+
+|private|14|
+|unsupervised|11|
+|uncertainty|11|
+|multi-task|8|
+|GANs|7|
+|online learning|7|
+|semi-supervised|7|
+|Differential Privacy|6|
+|few-shot|6|
+|transfer learning|5|
+|convolutional neural networks|4|
+|Q-learning|4|
+|time series|4|
+|CNN|4|
+|generative adversarial|4|
+|interpretability|2|
+|Knowledge Distillation|1|
+|real time|1|
+|GNN|1|
+|real-time|1|

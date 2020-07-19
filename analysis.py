@@ -32,6 +32,23 @@ my_stoplist = ['A','via','on','On','The','using','From']
 for a in my_stoplist:
     list_stopWords.append(a)
 
+# 定义topic短语词组
+topic_list = ['GNN', 'GCN', 'graph',
+'convolutional neural networks','CNN','convolutional neural networks',
+'GAN', 'GANs', "generative adversarial","generative adversarial"
+'reinforcement learning','Q-learning', 
+'online learning', "real time", "real-time",
+'Differential Privacy', "private",  
+'time series', 
+"semi-supervised",
+"unsupervised",
+"meta-learning", "few-shot",
+"interpretability","Explanability",
+"Knowledge Distillation",
+"transfer learning", 'knowledge transfer',
+'multi-task',
+'uncertainty']
+
 html_path = "Paper Digest_ ICML 2020 Highlights – Paper Digest.html"
 num_paper = 1084  # number of papaer accpted by ICML 2020
 num_tuple = 5 # 每一篇论文要提取的内容条数:(index,title,author,title_link,summary)
@@ -123,6 +140,37 @@ def count_author():
     
     return author_dict_num
 
+
+## 根据主题（专业名词短语）进行统计，排序，分类；
+def count_topic():
+    topic_dict = {}
+    for tup in papers:
+        title = tup[1][0] # title is a string now
+        # title.lower() # 转换为小写
+        import re
+        for t in topic_list:
+            result = bool(re.search(t, title, re.IGNORECASE))  #大小写无关
+            if(result == True):    
+                topic_dict[t] = topic_dict.get(t,0) + 1
+    
+    # 排序
+    topic_dict_list = sorted(topic_dict.items(), key=lambda x: x[1], reverse=True)
+
+    print(topic_dict_list)
+    for t in topic_dict_list:
+        
+        # t = ''.join('%s' % id for id in t)
+        # t.replace("(", "%|")
+        # t.replace(")", "||")
+        # t.replace(",", "||")
+        # t.replace("'", " ")
+        print(t)
+    
+    return topic_dict
+
+
+
+
 def plot_wordcloud(word_dict):
     '''根据词频字典生成词云图'''
     wc = WordCloud(
@@ -146,6 +194,10 @@ word_dict = count_keyword()
 
 author_dict = count_author()
 
+topic_dict = count_topic()
+
 # plot_wordcloud(author_dict)
 
-plot_wordcloud(word_dict)
+# plot_wordcloud(word_dict)
+
+plot_wordcloud(topic_dict)
