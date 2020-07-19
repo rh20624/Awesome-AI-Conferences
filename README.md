@@ -41,9 +41,8 @@ To be finished...
 
 |topic|num_papers|
 |:----|:----|
-|graph| |58|
-|GAN| 17|
-
+|graph|58|
+|GAN|17|
 |private|14|
 |unsupervised|11|
 |uncertainty|11|
@@ -64,3 +63,5 @@ To be finished...
 |real time|1|
 |GNN|1|
 |real-time|1|
+
+![avatar](/pic/topic.png)
