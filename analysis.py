@@ -91,7 +91,13 @@ def count_keyword():
     print(type(word_dict))
     word_dict_list = sorted(word_dict.items(), key=lambda x: x[1] ,reverse=True)
     # print(word_dict[:30])
-    return word_dict
+
+    ## 把论文数量添加到每个关键词的后面
+    word_dict_num = {}
+    for (key,value) in word_dict.items():
+        word_dict_num[key+"@"+str(value)] = value
+
+    return word_dict_num
 
 ### 计算作者名字出现的频率并加以排序
 def count_author():
@@ -140,4 +146,6 @@ word_dict = count_keyword()
 
 author_dict = count_author()
 
-plot_wordcloud(author_dict)
+# plot_wordcloud(author_dict)
+
+plot_wordcloud(word_dict)
