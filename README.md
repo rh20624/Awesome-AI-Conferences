@@ -55,6 +55,8 @@ To be finished...
 |Differential Privacy|6|
 |few-shot|6|
 |transfer learning|5|
+|Federated|5|
+|Federated learning|5|
 |convolutional neural networks|4|
 |Q-learning|4|
 |time series|4|

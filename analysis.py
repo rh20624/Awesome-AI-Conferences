@@ -47,7 +47,8 @@ topic_list = ['GNN', 'GCN', 'graph',
 "Knowledge Distillation",
 "transfer learning", 'knowledge transfer',
 'multi-task',
-'uncertainty']
+'uncertainty',
+'Federated', 'Federated learning']
 
 html_path = "Paper Digest_ ICML 2020 Highlights – Paper Digest.html"
 num_paper = 1084  # number of papaer accpted by ICML 2020
@@ -166,7 +167,12 @@ def count_topic():
         # t.replace("'", " ")
         print(t)
     
-    return topic_dict
+    topic_dict_num = {}
+    for (key,value) in topic_dict.items():
+        topic_dict_num[key+"@"+str(value)] = value
+    
+
+    return topic_dict_num
 
 
 
