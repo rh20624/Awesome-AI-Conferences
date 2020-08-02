@@ -5,7 +5,8 @@
 方便大家更好的查阅自己偏好的研究方向和作者的论文。
 
 * [ICML 2020 analysis](#ICML-2020)
-* [KDD 2020 analysis](KDD-2020)
+* [KDD 2020 analysis](#KDD-2020)
+
 ## ICML 2020
 
 ## 对作者信息统计生成author_cloud
