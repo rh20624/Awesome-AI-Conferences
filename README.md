@@ -94,7 +94,6 @@ To be finished...
 
 |topic|num_papers|
 |:----|:----|
-
 |graph|74|
 |convolutional neural networks|6|
 |unsupervised|6|
