@@ -73,7 +73,9 @@ To be finished...
 ![avatar](/pic/topic.png)
 
 ## KDD 2020
-
+**summary**: <br>
+- Total num, research track, and application track of paper in KDD 2020 is :  **338 217 121 **; 
+- Research track(long paper): 1279 submition, 216 accepted, **216 / 1279 = 16.9%**; 
 
 ## 对关键词信息统计生成word_cloud
 problem: 
