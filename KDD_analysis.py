@@ -139,6 +139,8 @@ def count_keyword():
 ### 计算作者名字出现的频率并加以排序
 def count_author():
     author_dict = {}
+    # print(papers[:5])
+    # print(authors[:5])
     for tup in papers:
         author = tup[3][0]
         author = author.split(",")
