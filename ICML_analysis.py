@@ -1,14 +1,15 @@
+
 '''
-Function: KDD 2020 accepted paper analysis;
+Function: Analyze the ICML-2020 one sentence summary, generate the word cloud and statistical infofilermation;
 
 reference: 
-    - https://www.kdd.org/kdd2020/accepted-papers (KDD 2020 accepted papers)
+    - https://www.paperdigest.org/2020/07/icml-2020-highlights/ （ICML 论文整理）
     - https://blog.csdn.net/qq_23926575/article/details/85291955 （词云图）
     - https://blog.csdn.net/u010255642/article/details/83305099 (停用词)
 Input: 
-    html page from KDD 2020;
+    html page from "Paper Digest";
 Output:
-    statistical information of KDD-2020 accepted papers;
+    statistical information of ICML-2020 accepted papers;
     word cloud;
 '''
 
@@ -25,7 +26,6 @@ list_stopWords=list(set(stopwords.words('english')))
 
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-import requests    # 根据url拿到指定的网页html 
 
 # 添加定制的停止词
 my_stoplist = ['A','via','on','On','The','using','From']
@@ -50,57 +50,37 @@ topic_list = ['GNN', 'GCN', 'graph',
 'uncertainty',
 'Federated', 'Federated learning']
 
-html_path = "file/KDD 2020 _ Accepted Papers.html"
+html_path = "file/Paper Digest_ ICML 2020 Highlights – Paper Digest.html"
 num_paper = 1084  # number of papaer accpted by ICML 2020
 num_tuple = 5 # 每一篇论文要提取的内容条数:(index,title,author,title_link,summary)
 papers = list()
-titles = list()
-authors = list()
-
-
-## content block
-# /html/body/main/div[2]/section/div/div[1]/div[2]/div/ul/li[51]
-
-## author, title
-# /html/body/main/div[2]/section/div/div[1]/div[2]/div/ul/li[51]/div/span[2] 
-# /html/body/main/div[2]/section/div/div[1]/div[2]/div/ul/li[51]/div/span[1]
 
 ## 从html页面拿到index,tile,link,author,summary
 def extract_info(filepath):
-    # f = requests.get(html_path,verify=False)
     with open(filepath, "rb") as f:
         html = f.read().decode("utf-8")
         dom = etree.HTML(html)
 
-        ## 根据class name查看论文数量; research track, application track
-        class_obj_1 = dom.xpath('/html/body/main/div[2]/section/div/div[1]/div[1]/div/ul')
-        class_obj_2 = dom.xpath('/html/body/main/div[2]/section/div/div[1]/div[2]/div/ul')
+        base_url = "/html/body/div[3]/section/div/div/div/div[2]/table/tbody/tr["
+        for i in range(num_paper):
+            i = i + 2
+            s = [0 for ii in range(num_tuple)]
+            for j in range(num_tuple):
+                j_path = dom.xpath(base_url + str(i) + "]/td[" + str(j+1) + "]/text()")
+                if(j == 0): 
+                    s[0] = j_path
+                elif(j == 2):
+                    s[3] = j_path
+                elif(j == 3):
+                    s[4] = j_path
+                else:
+                    s[1] = dom.xpath(base_url + str(i) + "]/td[" + "2" + "]/a/text()") # 获取title
+                    s[2] = dom.xpath(base_url + str(i) + "]/td[" + "2" + "]/a/@href") # 获取paper链接
+                # print(s)
+            papers.append((s[0],s[1],s[2],s[3],s[4]))  # 用tuple表示index,title,link,author,summary
 
-        num_1, num_2 = 0, 0
-        for _ in class_obj_1[0]:
-            num_1 += 1
-        for _ in class_obj_2[0]:
-            num_2 += 1
-        print("Total num, research track, and application track of paper in KDD 2020 is = ", num_1+num_2, num_1, num_2)
-        base_url_1 = "/html/body/main/div[2]/section/div/div[1]/div[1]/div/ul/"
-        base_url_2 = '/html/body/main/div[2]/section/div/div[1]/div[2]/div/ul/'
-
-        # /html/body/main/div[2]/section/div/div[1]/div[1]/div/ul/li[1]/div/span[2]/text()
-        ## 1. process research track papers
-        for i in range(num_1):
-            
-            temp = dom.xpath(base_url_1 + 'li[' + str(i+1) + ']/div/span[1]/text()')[0].__str__()
-            titles.append(temp)
-            temp = dom.xpath(base_url_1 + 'li[' + str(i+1) + ']/div/span[2]/text()')[1].__str__()
-            authors.append(temp.replace('   ','').replace('\n','').strip())
-
-        ## 2. process application track papers
-        for j in range(num_2):
-            temp = dom.xpath(base_url_2 + 'li[' + str(j+1) + ']/div/span[1]/text()')[0].__str__()
-            titles.append(temp)
-            temp = dom.xpath(base_url_2 + 'li[' + str(j+1) + ']/div/span[2]/text()')[1].__str__()
-            authors.append(temp.replace('   ','').replace('\n','').strip())
-
+        print(len(papers))
+        # print(papers[:4])
 
 ## 定制化关键词，比如GNN,GAN,graph neural network(s)...
 def get_keywords():
@@ -109,25 +89,26 @@ def get_keywords():
 ## 计算标题和总结中出现不同关键词的频率
 def count_keyword():
     word_dict = {}
-    # print(titles[:10])
-    # dede
-    for title in titles:
-        ## 处理title 得到单词
-        # print(type(title))
-        
-        title = title.split(" ")
-        # print(title)
-        
-        ## 过滤停止词语
+    for tup in papers:
+        # 处理标题关键词
+        title = tup[1][0] # 每一个论文的title
+        title = title.split(" ") #title 转换为list
+        # 过滤停止词语
         title = [t for t in title if t not in list_stopWords]
         for i in title:
             word_dict[i] = word_dict.get(i, 0) + 1
-                   
+
+        # # 处理summary关键词
+        # summary = tup[4][0]
+        # summary = summary.split(" ")
+        # summary = [t for t in summary if t not in list_stopWords]
+        # for j in summary:
+        #     word_dict[j] = word_dict.get(j,0) + 1
 
     # sort the word_dict
-    # print(type(word_dict))
+    print(type(word_dict))
     word_dict_list = sorted(word_dict.items(), key=lambda x: x[1] ,reverse=True)
-    # print(word_dict_list[:30])
+    # print(word_dict[:30])
 
     ## 把论文数量添加到每个关键词的后面
     word_dict_num = {}
@@ -139,8 +120,6 @@ def count_keyword():
 ### 计算作者名字出现的频率并加以排序
 def count_author():
     author_dict = {}
-    # print(papers[:5])
-    # print(authors[:5])
     for tup in papers:
         author = tup[3][0]
         author = author.split(",")
@@ -166,8 +145,8 @@ def count_author():
 ## 根据主题（专业名词短语）进行统计，排序，分类；
 def count_topic():
     topic_dict = {}
-    for title in titles:
-        # title = tup[1][0] # title is a string now
+    for tup in papers:
+        title = tup[1][0] # title is a string now
         # title.lower() # 转换为小写
         import re
         for t in topic_list:
@@ -181,11 +160,11 @@ def count_topic():
     print(topic_dict_list)
     for t in topic_dict_list:
         
-        t = ''.join('%s' % id for id in t)
-        t.replace("(", "%|")
-        t.replace(")", "||")
-        t.replace(",", "||")
-        t.replace("'", "  ")
+        # t = ''.join('%s' % id for id in t)
+        # t.replace("(", "%|")
+        # t.replace(")", "||")
+        # t.replace(",", "||")
+        # t.replace("'", " ")
         print(t)
     
     topic_dict_num = {}
@@ -196,9 +175,6 @@ def count_topic():
     return topic_dict_num
 
 
-## 根据作者的所属机构进行排名
-def count_institution():
-    pass
 
 
 def plot_wordcloud(word_dict):
@@ -220,9 +196,9 @@ def plot_wordcloud(word_dict):
 
 extract_info(html_path)
 
-# word_dict = count_keyword()
+word_dict = count_keyword()
 
-# author_dict = count_author()
+author_dict = count_author()
 
 topic_dict = count_topic()
 

@@ -1,13 +1,21 @@
-# ICML-2020 论文统计信息
+# Top AI Conferences 论文统计信息
 
-## 声明
-本工作基于Paper Digest对ICML-2020接收论文的整理([链接](https://www.paperdigest.org/2020/07/icml-2020-highlights/))，将ICML-2020的论文按照关键词、主题、作者信息进行分类整理，
-方便大家更好的查阅自己偏好的研究方向和作者的论文。
+# 声明
 
-* [ICML 2020 analysis](#ICML-2020)
-* [KDD 2020 analysis](#KDD-2020)
+本文对各个AI和data science相关的顶会进行整理，主要有以下几个目的：
 
-## ICML 2020
+- 统计：给出各大会议接收论文的关键词、主题、作者信息的统计
+- 归类：根据识别出的主题将各个会议的文章进行自动的归类，便于检索和阅读；
+
+**会议类别**：
+
+* [ICML 2020](#ICML-2020)      [ICML 2019]()
+* [KDD 2020](#KDD-2020)
+* [Multimedia (MM) 2020](#MM-2020)
+
+# ICML 2020
+
+参考：Paper Digest对ICML-2020接收论文的整理([链接](https://www.paperdigest.org/2020/07/icml-2020-highlights/))
 
 ## 对作者信息统计生成author_cloud
 
@@ -26,13 +34,13 @@ Top 10 authors:
 |Tommi Jaakkola|7|MIT|
 |Steven Wu|6|U of Minnesota|
 
-![avatar](/pic/author.png)
+![avatar](pic/author.png)
 ## 对关键词信息统计生成word_cloud
 problem: 
 - 很多专业名词(e.g., Adversarial Network, neural network)被分开成为两个词语
 ，不符合实际情况；<br>
 - 大小写，单复数应该要不敏感;<br>
-![avatar](/pic/keyword.png)
+![avatar](pic/keyword.png)
 
 ## 对论文按照主题进行统计分类
 
@@ -73,19 +81,23 @@ To be finished...
 |GNN|1|
 |real-time|1|
 
-![avatar](/pic/topic.png)
+![avatar](pic/topic.png)
 
-## KDD 2020
+# KDD 2020
+
 **summary**: <br>
-- Total num, research track, and application track of paper in KDD 2020 is :  **338 217 121 **; 
+
+- Total num (RT+ADS), Research Track, and Applied Data Science (ADS) track of paper in KDD 2020 is :  **338 217 121 **; 
+- Total number of submission: **2035** (the highest in history,over 13% more than the second highest one)
 - Research track(long paper): 1279 submition, 216 accepted, **216 / 1279 = 16.9%**; 
+- **Conference schedule**: [Click here](https://www.kdd.org/kdd2020/schedule)
 
 ## 对关键词信息统计生成word_cloud
 problem: 
 - 很多专业名词(e.g., Adversarial Network, neural network)被分开成为两个词语
 ，不符合实际情况；<br>
 - 大小写，单复数应该要不敏感;<br>
-![avatar](/pic/KDD2020-keyword.png)
+<img src="pic/KDD2020-keyword.png" alt="avatar" style="zoom:150%;" />
 
 ## 对论文按照主题进行统计分类
 
@@ -122,5 +134,4 @@ To be finished...
 |GANs|1|
 |transfer learning|1|
 
-
-![avatar](/pic/KDD2020-topic.png)
+<img src="pic/KDD2020-topic.png" alt="avatar" style="zoom:150%;" />
